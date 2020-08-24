@@ -81,7 +81,7 @@ see `section4` examples folder
 
 see `section5` examples folder
 
-![](2020-08-24-15-27-49.png)
+![](image/2020-08-24-15-27-49.png)
 
 [Public_class_fields](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/Public_class_fields)
 [Inheritance_and_the_prototype_chain](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Inheritance_and_the_prototype_chain)
@@ -95,6 +95,10 @@ These links might also be interesting:
 ## Advanced Types
 
 see `section6` examples folder
+
+These links might also be interesting:
+
+[More on Advanced Types](https://www.typescriptlang.org/docs/handbook/advanced-types.html)
 
 <!-- 0 / 12|52 min -->
 

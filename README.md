@@ -42,9 +42,21 @@ or
 tsc -w
 ```
 
-## Sezione 4:Next-generation JavaScript & TypeScript
+These links might also be interesting:
 
-<!-- 0 / 9|32 min -->
+[tsconfig](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html)
+
+[Compiler Config](https://www.typescriptlang.org/docs/handbook/compiler-options.html)
+
+[VS Code TS Debugging](https://code.visualstudio.com/docs/typescript/typescript-debugging)
+
+## Next-generation JavaScript & TypeScript
+
+https://kangax.github.io/compat-table/es6/
+
+> [reference-vs-primitive-values](https://academind.com/learn/javascript/reference-vs-primitive-values/)
+
+see `section4` examples folder
 
 ## Sezione 5:Classes & Interfaces
 

@@ -1,5 +1,24 @@
 # ts_course
 
+- [ts_course](#ts_course)
+
+  - [Getting Started](#getting-started)
+  - [TypeScript Basics & Basic Types](#typescript-basics--basic-types)
+  - [The TypeScript Compiler (and its Configuration)](#the-typescript-compiler-and-its-configuration)
+  - [Next-generation JavaScript & TypeScript](#next-generation-javascript--typescript)
+  - [Classes & Interfaces](#classes--interfaces)
+  - [Advanced Types](#advanced-types)
+  - [Generics](#generics)
+  - [Decorators](#decorators)
+  - [Sezione 9:Practice Time! Let's build a Drag & Drop Project](#sezione-9practice-time-lets-build-a-drag--drop-project)
+  - [Sezione 10:Modules & Namespaces](#sezione-10modules--namespaces)
+  - [Sezione 11:Using Webpack with TypeScript](#sezione-11using-webpack-with-typescript)
+  - [Sezione 12:3rd Party Libraries & TypeScript](#sezione-123rd-party-libraries--typescript)
+  - [Sezione 13:Time to Practice!](#sezione-13time-to-practice)
+  - [Sezione 14:React.js & TypeScript](#sezione-14reactjs--typescript)
+  - [Sezione 15:Node.js + Express & TypeScript](#sezione-15nodejs--express--typescript)
+  - [Sezione 16:Course Roundup](#sezione-16course-roundup)
+
 ## Getting Started
 
 ![](image/whyts.png)
@@ -58,19 +77,36 @@ https://kangax.github.io/compat-table/es6/
 
 see `section4` examples folder
 
-## Sezione 5:Classes & Interfaces
+## Classes & Interfaces
 
-<!-- 0 / 28|1 h 36 min -->
+see `section5` examples folder
 
-## Sezione 6:Advanced Types
+![](2020-08-24-15-27-49.png)
+
+[Public_class_fields](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/Public_class_fields)
+[Inheritance_and_the_prototype_chain](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Inheritance_and_the_prototype_chain)
+
+These links might also be interesting:
+
+[More on (JS) Classes](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes)
+
+[More on TS Interfaces](https://www.typescriptlang.org/docs/handbook/interfaces.html)
+
+## Advanced Types
+
+see `section6` examples folder
 
 <!-- 0 / 12|52 min -->
 
-## Sezione 7:Generics
+## Generics
+
+see `section7` examples folder
 
 <!-- 0 / 12|52 min -->
 
-## Sezione 8:Decorators
+## Decorators
+
+see `section8` examples folder
 
 <!-- 0 / 16|1 h 17 min -->
 

@@ -14,9 +14,33 @@ https://www.typescriptlang.org/docs/handbook/basic-types.html
 
 ## The TypeScript Compiler (and its Configuration)
 
+https://www.typescriptlang.org/tsconfig
+
 see `section3` examples folder
 
-<!-- 0 / 15|55 min -->
+you can run `watch` compile in this way
+
+```
+tsc app.ts -w
+```
+
+or if you have multiple files, create `tsconfig.json` with
+
+```
+tsc --init
+```
+
+and then with only `tsc` compile all files, or combined in `watch` mode :
+
+```
+tsc --watch
+```
+
+or
+
+```
+tsc -w
+```
 
 ## Sezione 4:Next-generation JavaScript & TypeScript
 

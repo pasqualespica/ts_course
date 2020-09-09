@@ -6,12 +6,12 @@ const person: {
   name: string;
   age: number;
   hobbies: string[];
-  role: [number, string];
+  role: [number, string]; // tuples
 } = {
-  name: 'Maximilian',
+  name: "Maximilian",
   age: 30,
-  hobbies: ['Sports', 'Cooking'],
-  role: [2, 'author']
+  hobbies: ["Sports", "Cooking"],
+  role: [2, "author"],
 };
 
 // person.role.push('admin');
@@ -20,7 +20,7 @@ const person: {
 // person.role = [0, 'admin', 'user'];
 
 let favoriteActivities: string[];
-favoriteActivities = ['Sports'];
+favoriteActivities = ["Sports"];
 
 console.log(person.name);
 

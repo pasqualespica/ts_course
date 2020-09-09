@@ -11,9 +11,11 @@ function add(n1: number, n2: number, showResult: boolean, phrase: string) {
 }
 
 let number1: number;
+console.log(`1-Is a number type-inference ${typeof number1 === "number"}`);
 number1 = 5;
+console.log(`2-Is a number type-inference ${typeof number1 === "number"}`);
 const number2 = 2.8;
 const printResult = true;
-let resultPhrase = 'Result is: ';
+let resultPhrase = "Result is: ";
 
 add(number1, number2, printResult, resultPhrase);

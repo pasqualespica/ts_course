@@ -3,6 +3,7 @@ class Department {
   // private name: string;
   private employees: string[] = [];
 
+  // shortcut to declare local attribute up
   constructor(private id: string, public name: string) {
     // this.id = id;
     // this.name = n;
@@ -23,15 +24,15 @@ class Department {
   }
 }
 
-const accounting = new Department('d1', 'Accounting');
+const accounting = new Department("d1", "Accounting");
 
-accounting.addEmployee('Max');
-accounting.addEmployee('Manu');
+accounting.addEmployee("Max");
+accounting.addEmployee("Manu");
 
 // accounting.employees[2] = 'Anna';
 
 accounting.describe();
-accounting.name = 'NEW NAME';
+accounting.name = "NEW NAME";
 accounting.printEmployeeInformation();
 
 // const accountingCopy = { name: 'DUMMY', describe: accounting.describe };

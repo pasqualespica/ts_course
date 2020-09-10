@@ -158,6 +158,7 @@ https://kangax.github.io/compat-table/es6/
 
 see `section5` examples folder
 
+![](2020-09-09-16-04-06.png)
 ### 01-starting-setup
 ### 02-class-and-this-basics
 ### 03-private-and-public
@@ -173,8 +174,6 @@ see `section5` examples folder
 ### 13-interface-inheritance
 ### 14-interface-function-types
 ### 15-optional-properties
-
-![](image/2020-08-24-15-27-49.png)
 
 [Public_class_fields](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/Public_class_fields)
 [Inheritance_and_the_prototype_chain](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Inheritance_and_the_prototype_chain)

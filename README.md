@@ -69,6 +69,7 @@
   - [Section 14 : React.js & TypeScript](#section-14--reactjs--typescript)
   - [Section 15 : Node.js + Express & TypeScript](#section-15--nodejs--express--typescript)
   - [Section 16 : Course Roundup](#section-16--course-roundup)
+
 ## Section 1 : Getting Started
 
 ![](image/whyts.png)
@@ -76,21 +77,35 @@
 ![](image/2020-08-24-10-19-37.png)
 
 ## Section 2 : TypeScript Basics & Basic Types
+
 see `section2` examples folder
 
 ![](2020-09-08-09-59-44.png)
+
 ### 01-ts-benefits
+
 ### 02-js-types
+
 ### 03-core-data-types
+
 ### 04-type-inferrance-and-assignments
+
 ### 05-object-types
+
 ### 06-arrays
+
 ### 07-tuples
+
 ### 08-enums
+
 ### 09-union-types
+
 ### 10-literal-types
+
 ### 11-type-aliases
+
 ### 12-function-types
+
 ### 13-unknown-never
 
 https://www.typescriptlang.org/docs/handbook/basic-types.html
@@ -102,9 +117,13 @@ https://www.typescriptlang.org/tsconfig
 see `section3` examples folder
 
 ### 00-starting-setup
+
 ### 01-watch-mode-tsconfig
+
 ### 02-excluding
+
 ### 03-config-finished
+
 ### 04-chrome-debugging
 
 you can run `watch` compile in this way
@@ -140,39 +159,59 @@ These links might also be interesting:
 [VS Code TS Debugging](https://code.visualstudio.com/docs/typescript/typescript-debugging)
 
 ## Section 4 : Next-generation JavaScript & TypeScript
+
 see `section4` examples folder
 
 ### 01-starting-setup
+
 ### 02-let-conts-arrow-functions
+
 ### 03-spread-operator
+
 ### 04-spread-and-rest
+
 ### 05-destructuring
+
 ### 06-finished
 
 https://kangax.github.io/compat-table/es6/
 
 > [reference-vs-primitive-values](https://academind.com/learn/javascript/reference-vs-primitive-values/)
 
-
 ## Section 5 : Classes & Interfaces
 
 see `section5` examples folder
 
 ![](2020-09-09-16-04-06.png)
+
 ### 01-starting-setup
+
 ### 02-class-and-this-basics
+
 ### 03-private-and-public
+
 ### 04-shorter-init-syntax
+
 ### 05-readonly
+
 ### 06-inheritance
+
 ### 07-overriding-and-protected
+
 ### 08-getters-and-setters
+
 ### 09-abstract
+
 ### 10-private-constructors
+
 ### 11-basic-interfaces
+
 ### 12-implementing-interfaces
+
 ### 13-interface-inheritance
+
 ### 14-interface-function-types
+
 ### 15-optional-properties
 
 [Public_class_fields](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/Public_class_fields)
@@ -191,11 +230,17 @@ see `section6` examples folder
 ![](2020-09-10-11-50-53.png)
 
 ### 01-starting-setup
+
 ### 02-intersection-types
+
 ### 03-type-guards
+
 ### 04-discriminated-unions
+
 ### 05-type-casting
+
 ### 06-index-properties
+
 ### 08-optional-chaining-nullish-coalescing
 
 These links might also be interesting:
@@ -207,16 +252,20 @@ These links might also be interesting:
 see `section7` examples folder
 
 ### 01-starting-setup
+
 ### 02-first-generic-method
+
 ### 03-another-generic-function
+
 ### 04-keyof-constraints
+
 ### 05-generic-classes
+
 ### 06-finished
 
 [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
 
 [utility-types](https://www.typescriptlang.org/docs/handbook/utility-types.html)
-
 
 <!-- 0 / 12|52 min -->
 

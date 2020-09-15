@@ -43,7 +43,7 @@ const fetchedUserData = {
   job: { title: "CEO", description: "My own company" },
 };
 
-console.log(fetchedUserData?.job?.title);
+console.log(`Chaining ${fetchedUserData?.job?.title}`);
 
 const userInput = undefined;
 

@@ -188,6 +188,8 @@ These links might also be interesting:
 
 see `section6` examples folder
 
+![](2020-09-10-11-50-53.png)
+
 ### 01-starting-setup
 ### 02-intersection-types
 ### 03-type-guards

@@ -76,6 +76,9 @@
 ![](image/2020-08-24-10-14-05.png)
 ![](image/2020-08-24-10-19-37.png)
 
+Install `ts`
+https://www.typescriptlang.org/download
+
 ## Section 2 : TypeScript Basics & Basic Types
 
 see `section2` examples folder
@@ -250,6 +253,8 @@ These links might also be interesting:
 ## Section 7 : Generics
 
 see `section7` examples folder
+
+![](2020-09-16-09-27-55.png)
 
 ### 01-starting-setup
 

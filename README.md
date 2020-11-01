@@ -83,31 +83,266 @@ https://www.typescriptlang.org/download
 
 see `section2` examples folder
 
-![](2020-09-08-09-59-44.png)
-
 ### 01-ts-benefits
+```ts
+function add(n1: number, n2: number) {
+  return n1 + n2;
+}
 
+const number1 = 5;
+const number2 = 2.8;
+
+const result = add(number1, number2);
+console.log(result);
+```
+
+![](2020-10-31-17-41-19.png)
+
+![](2020-10-31-17-42-26.png)
 ### 02-js-types
 
+> for `js` and `ts` all numbers are `floats`
+```ts
+const number1 = 5; // 5.0
+```
 ### 03-core-data-types
+![](2020-09-08-09-59-44.png)
 
 ### 04-type-inferrance-and-assignments
 
+![](2020-10-31-18-37-04.png)
+
+
 ### 05-object-types
+```ts
+// const person: {
+//   name: string;
+//   age: number;
+// } = {
+const person = { // also with :object type
+  name: 'Maximilian',
+  age: 30
+};
+```
+ or 
+```ts
+const person : {
+    name : string;
+    age : number;
+} = {
+    name: 'Maximilian',
+    age: 30
+};
+```
+
+`Nested Objects & Types` : Of course object types can also be created for nested objects.
+
+Let's say you have this JavaScript object:
+```ts
+const product = {
+  id: 'abc1',
+  price: 12.99,
+  tags: ['great-offer', 'hot-and-new'],
+  details: {
+    title: 'Red Carpet',
+    description: 'A great carpet - almost brand-new!'
+  }
+}
+```
+This would be the type of such an object:
+```ts
+{
+  id: string;
+  price: number;
+  tags: string[],
+  details: {
+    title: string;
+    description: string;
+  }
+}
+```
+So you have an object type in an object type so to say.
 
 ### 06-arrays
+```ts
+(property) hobbies: string[]
+```
+example 
+```js
+    const person = {
+    name: 'Maximilian',
+    age: 30,
+    hobbies: ['Sports', 'Cooking']
+    };
+
+    for (const hobby of person.hobbies) {
+        console.log(hobby.toUpperCase());
+    }
+```
 
 ### 07-tuples
-
+```ts
+const person: {
+  name: string;
+  age: number;
+  hobbies: string[];
+  role: [number, string]; // tuples - fixed-length array : Added by TS
+}
+```
 ### 08-enums
+
+```ts
+enum Role { ADMIN = 'ADMIN', READ_ONLY = 100, AUTHOR = 'AUTHOR' };
+```
+![](2020-10-31-18-49-44.png)
+
+see also [any](https://www.typescriptlang.org/docs/handbook/basic-types.html#any) type
 
 ### 09-union-types
 
-### 10-literal-types
+```ts
+function combine(input1: number | string, input2: number | string) {
+  let result;
+  if (typeof input1 === "number" && typeof input2 === "number") {
+    result = input1 + input2;
+  } else {
+    result = input1.toString() + input2.toString();
+  }
+  return result;
 
+```
+
+### 10-literal-types
+```ts
+function combine(
+  input1: number | string,
+  input2: number | string,
+  resultConversion: 'as-number' | 'as-text' // literal types
+) {
+  let result;
+  if (typeof input1 === 'number' && typeof input2 === 'number' || resultConversion === 'as-number') {
+    result = +input1 + +input2;
+  } else {
+    result = input1.toString() + input2.toString();
+  }
+  return result;
+  // if (resultConversion === 'as-number') {
+  //   return +result;
+  // } else {
+  //   return result.toString();
+  // }
+}
+
+```
 ### 11-type-aliases
 
+`type` keyword introduce by `ts`
+
+```ts
+type Combinable = number | string;
+type ConversionDescriptor = 'as-number' | 'as-text';
+
+function combine(
+  input1: Combinable,
+  input2: Combinable,
+  resultConversion: ConversionDescriptor
+) {
+    ...
+    ...
+}
+```
+> Type Aliases & Object Types
+
+Type aliases can be used to "create" your own types. You're not limited to storing union types though - you can also provide an alias to a (possibly complex) object type.
+
+For example:
+```ts
+type User = { name: string; age: number };
+const u1: User = { name: 'Max', age: 30 }; // this works!
+```
+
+This allows you to avoid unnecessary repetition and manage types centrally.
+
+For example, you can simplify this code:
+```ts
+function greet(user: { name: string; age: number }) {
+  console.log('Hi, I am ' + user.name);
+}
+ 
+function isOlder(user: { name: string; age: number }, checkAge: number) {
+  return checkAge > user.age;
+}
+
+```
+To:
+```ts
+type User = { name: string; age: number };
+ 
+function greet(user: User) {
+  console.log('Hi, I am ' + user.name);
+}
+ 
+function isOlder(user: User, checkAge: number) {
+  return checkAge > user.age;
+}
+```
+
 ### 12-function-types
+```ts
+function add(n1: number, n2: number) {
+  return n1 + n2;
+}
+
+let combineValues: (a: number, b: number) => number;
+combineValues = add;
+```
+> **NOTE** usd [void](https://www.typescriptlang.org/docs/handbook/basic-types.html#void) for `function` and not [undefined](https://www.typescriptlang.org/docs/handbook/basic-types.html#null-and-undefined) that is a valid type. If you use `undefined` you must add a `return;` at your `function`
+
+
+or using `callback` function :
+
+```ts
+function addAndHandle(n1: number, n2: number, cb: (num: number) => void) {
+  const result = n1 + n2;
+  cb(result);
+}
+
+addAndHandle(10, 20, (result) => {
+  console.log(result);
+});
+```
+> **NOTE** `void` in callback function is OK, it's meaning is ignore the result
+
+See also  [unknown](https://www.typescriptlang.org/docs/handbook/basic-types.html#unknown) type and it's different to `any`
+
+```ts
+let notSure: unknown = 4;
+notSure = "maybe a string instead";
+
+// OK, definitely a boolean
+notSure = false;
+```
+
+See also  [never](https://www.typescriptlang.org/docs/handbook/basic-types.html#never) type
+
+```ts
+// Function returning never must not have a reachable end point
+function error(message: string): never {
+  throw new Error(message);
+}
+
+// Inferred return type is never
+function fail() {
+  return error("Something failed");
+}
+
+// Function returning never must not have a reachable end point
+function infiniteLoop(): never {
+  while (true) {}
+}
+```
+
+
 
 ### 13-unknown-never
 

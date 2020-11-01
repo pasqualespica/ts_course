@@ -17,7 +17,6 @@
     - [12-function-types](#12-function-types)
     - [13-unknown-never](#13-unknown-never)
   - [Section 3 : The TypeScript Compiler (and its Configuration)](#section-3--the-typescript-compiler-and-its-configuration)
-    - [00-starting-setup](#00-starting-setup)
     - [01-watch-mode-tsconfig](#01-watch-mode-tsconfig)
     - [02-excluding](#02-excluding)
     - [03-config-finished](#03-config-finished)
@@ -313,6 +312,8 @@ addAndHandle(10, 20, (result) => {
 ```
 > **NOTE** `void` in callback function is OK, it's meaning is ignore the result
 
+### 13-unknown-never
+
 See also  [unknown](https://www.typescriptlang.org/docs/handbook/basic-types.html#unknown) type and it's different to `any`
 
 ```ts
@@ -342,34 +343,18 @@ function infiniteLoop(): never {
 }
 ```
 
-
-
-### 13-unknown-never
-
-https://www.typescriptlang.org/docs/handbook/basic-types.html
-
 ## Section 3 : The TypeScript Compiler (and its Configuration)
 
 https://www.typescriptlang.org/tsconfig
 
 see `section3` examples folder
 
-### 00-starting-setup
-
 ### 01-watch-mode-tsconfig
-
-### 02-excluding
-
-### 03-config-finished
-
-### 04-chrome-debugging
-
 you can run `watch` compile in this way
 
 ```
 tsc app.ts -w
 ```
-
 or if you have multiple files, create `tsconfig.json` with
 
 ```
@@ -390,11 +375,98 @@ tsc -w
 
 These links might also be interesting:
 
-[tsconfig](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html)
+- [tsconfig](https://www.typescriptlang.org/tsconfig)
 
-[Compiler Config](https://www.typescriptlang.org/docs/handbook/compiler-options.html)
+- [Compiler Config](https://www.typescriptlang.org/docs/handbook/compiler-options.html)
 
-[VS Code TS Debugging](https://code.visualstudio.com/docs/typescript/typescript-debugging)
+- [VS Code TS Debugging](https://code.visualstudio.com/docs/typescript/typescript-debugging)
+
+### 02-excluding
+
+```json
+  "exclude": [
+    "node_modules" // would be the default, folder, sub-folder, or files ...
+  ],
+  "includes": ["app.ts", "analytics.ts"]
+  // files: [
+
+  // ]
+}
+```
+
+### 03-config-finished
+
+- [target](https://www.typescriptlang.org/tsconfig#target)
+```json
+    "target": "es6" /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017','ES2018' or 'ESNEXT'. */,
+```
+
+- [module](https://www.typescriptlang.org/tsconfig#module)
+```json
+    "module": "commonjs",                     /* Specify module code generation: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015', or 'ESNext'. */
+```
+
+- [lib](https://www.typescriptlang.org/tsconfig#lib)
+```json
+    "lib": [
+      "dom",
+      "es6",
+      "dom.iterable",
+      "scripthost"
+    ],      
+```
+
+- [allowJs](https://www.typescriptlang.org/tsconfig#allowJs)
+
+```json
+    "allowJs": true, /* Allow javascript files to be compiled. */
+```
+
+- [sourceMap](https://www.typescriptlang.org/tsconfig#sourceMap)
+```
+"sourceMap": true, /* Generates corresponding '.map' file. */
+```
+- [rootDir](https://www.typescriptlang.org/tsconfig#rootDir) and [outDir](https://www.typescriptlang.org/tsconfig#outDir)
+```json
+    "outDir": "./dist",  /* Redirect output structure to the directory. */
+    "rootDir": "./src",  /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */
+```
+
+- [removeComments](https://www.typescriptlang.org/tsconfig#removeComments) and [noEmit](https://www.typescriptlang.org/tsconfig#noEmit)
+```json
+    "removeComments": true, /* Do not emit comments to output. */
+    "noEmit": true, /* Do not emit outputs. */
+```
+
+- [noEmitOnError](https://www.typescriptlang.org/tsconfig#noEmitOnError)
+
+- `Strict Type-Checking Options`
+```json
+    /* Strict Type-Checking Options */
+    "strict": true,                           /* Enable all strict type-checking options. */
+    // "noImplicitAny": false,                 /* Raise error on expressions and declarations with an implied 'any' type. */
+    // "strictNullChecks": true,              /* Enable strict null checks. */
+    // "strictFunctionTypes": true,           /* Enable strict checking of function types. */
+    // "strictBindCallApply": true,           /* Enable strict 'bind', 'call', and 'apply' methods on functions. */
+    // "strictPropertyInitialization": true,  /* Enable strict checking of property initialization in classes. */
+    // "noImplicitThis": true,                /* Raise error on 'this' expressions with an implied 'any' type. */
+    // "alwaysStrict": true,                  /* Parse in strict mode and emit "use strict" for each source file. */
+
+```
+
+- `Additional Checks`
+```json
+    /* Additional Checks */
+    "noUnusedLocals": true,                /* Report errors on unused locals. */
+    "noUnusedParameters": true,            /* Report errors on unused parameters. */
+    "noImplicitReturns": true,             /* Report error when not all code paths in function return a value. */
+    // "noFallthroughCasesInSwitch": true,    /* Report errors for fallthrough cases in switch statement. */
+
+```
+
+### 04-chrome-debugging
+
+- install `VS` plug-in `Debugger for Chrome`
 
 ## Section 4 : Next-generation JavaScript & TypeScript
 

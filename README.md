@@ -22,14 +22,12 @@
     - [03-config-finished](#03-config-finished)
     - [04-chrome-debugging](#04-chrome-debugging)
   - [Section 4 : Next-generation JavaScript & TypeScript](#section-4--next-generation-javascript--typescript)
-    - [01-starting-setup](#01-starting-setup)
     - [02-let-conts-arrow-functions](#02-let-conts-arrow-functions)
     - [03-spread-operator](#03-spread-operator)
-    - [04-spread-and-rest](#04-spread-and-rest)
-    - [05-destructuring](#05-destructuring)
-    - [06-finished](#06-finished)
+    - [04-destructuring](#04-destructuring)
+    - [05-finished](#05-finished)
   - [Section 5 : Classes & Interfaces](#section-5--classes--interfaces)
-    - [01-starting-setup](#01-starting-setup-1)
+    - [01-starting-setup](#01-starting-setup)
     - [02-class-and-this-basics](#02-class-and-this-basics)
     - [03-private-and-public](#03-private-and-public)
     - [04-shorter-init-syntax](#04-shorter-init-syntax)
@@ -45,7 +43,7 @@
     - [14-interface-function-types](#14-interface-function-types)
     - [15-optional-properties](#15-optional-properties)
   - [Section 6 : Advanced Types](#section-6--advanced-types)
-    - [01-starting-setup](#01-starting-setup-2)
+    - [01-starting-setup](#01-starting-setup-1)
     - [02-intersection-types](#02-intersection-types)
     - [03-type-guards](#03-type-guards)
     - [04-discriminated-unions](#04-discriminated-unions)
@@ -53,12 +51,12 @@
     - [06-index-properties](#06-index-properties)
     - [08-optional-chaining-nullish-coalescing](#08-optional-chaining-nullish-coalescing)
   - [Section 7 : Generics](#section-7--generics)
-    - [01-starting-setup](#01-starting-setup-3)
+    - [01-starting-setup](#01-starting-setup-2)
     - [02-first-generic-method](#02-first-generic-method)
     - [03-another-generic-function](#03-another-generic-function)
     - [04-keyof-constraints](#04-keyof-constraints)
     - [05-generic-classes](#05-generic-classes)
-    - [06-finished](#06-finished-1)
+    - [06-finished](#06-finished)
   - [Section 8 : Decorators](#section-8--decorators)
   - [Section 9 : Practice Time! Let's build a Drag & Drop Project](#section-9--practice-time-lets-build-a-drag--drop-project)
   - [Section 10 : Modules & Namespaces](#section-10--modules--namespaces)
@@ -387,10 +385,8 @@ These links might also be interesting:
   "exclude": [
     "node_modules" // would be the default, folder, sub-folder, or files ...
   ],
-  "includes": ["app.ts", "analytics.ts"]
-  // files: [
-
-  // ]
+  "includes": ["app.ts", "analytics.ts"],
+  "files" : [ ]
 }
 ```
 
@@ -472,19 +468,97 @@ These links might also be interesting:
 
 see `section4` examples folder
 
-### 01-starting-setup
+[JS compatECMAScript 562016+nextintlnon-standard compatibility table](https://kangax.github.io/compat-table/es6/
+)
 
 ### 02-let-conts-arrow-functions
 
+- [variable-declarations](https://www.typescriptlang.org/docs/handbook/variable-declarations.html)
+
+> When a variable is declared using let, it uses what some call lexical-scoping or block-scoping. Unlike variables declared with var whose scopes leak out to their containing function, block-scoped variables are not visible outside of their nearest containing block or for-loop.
+```ts
+function f(input: boolean) {
+  let a = 100;
+
+  if (input) {
+    // Still okay to reference 'a'
+    let b = a + 1;
+    return b;
+  }
+
+  // Error: 'b' doesn't exist here
+  return b;
+}
+```
+
+- [arrow-function](https://www.tutorialsteacher.com/typescript/arrow-function)
+> Using fat arrow (=>) we drop the need to use the 'function' keyword.
+
+> Furthermore, if the function body consists of only one statement then no need for the curly brackets and the return keyword
+```ts
+const add = (a: number, b: number) => a + b;
+
+const printOutput: (a: number | string) => void = output => console.log(output;
+```
+![](2020-11-01-17-20-52.png)
+
+See `default Function parameters` 
+- [Function DOC](https://www.typescriptlang.org/docs/handbook/functions.html)
+- [optional-and-default-parameters](https://www.typescriptlang.org/docs/handbook/functions.html#optional-and-default-parameters)
+
 ### 03-spread-operator
 
-### 04-spread-and-rest
+- [Spread Operator](https://developer.mozilla.org/it/docs/Web/JavaScript/Reference/Operators/Spread_syntax)
+```ts
+const hobbies = ['Sports', 'Cooking'];
+const activeHobbies = ['Hiking'];
 
-### 05-destructuring
+activeHobbies.push(...hobbies);
 
-### 06-finished
+const person = {
+  name: 'Max',
+  age: 30
+};
 
-https://kangax.github.io/compat-table/es6/
+const copiedPerson = { ...person };
+
+const add = (...numbers: number[]) => {
+  return numbers.reduce((curResult, curValue) => {
+    return curResult + curValue;
+  }, 0);
+};
+
+const addedNumbers = add(5, 10, 2, 3.7);
+```
+
+we can use also use `tuple` type
+```ts
+const add = (...numbers: [number, number, number]) => {
+  return numbers.reduce((curResult, curValue) => {
+    return curResult + curValue;
+  }, 0);
+};
+```
+
+### 04-destructuring
+
+[](https://developer.mozilla.org/it/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment)
+
+```ts
+// desctructing ...
+const [hobby1, hobby2, ...remainingHobbies] = hobbies;
+```
+
+see her for `array`, `tuples` and `object` [destructuring](https://www.typescriptlang.org/docs/handbook/variable-declarations.html#destructuring)
+
+```ts
+let o = {
+  a: "foo",
+  b: 12,
+  c: "bar",
+};
+let { a, b } = o;
+```
 
 > [reference-vs-primitive-values](https://academind.com/learn/javascript/reference-vs-primitive-values/)
 

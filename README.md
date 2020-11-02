@@ -41,7 +41,6 @@
     - [14-interface-function-types](#14-interface-function-types)
     - [15-optional-properties](#15-optional-properties)
   - [Section 6 : Advanced Types](#section-6--advanced-types)
-    - [01-starting-setup](#01-starting-setup)
     - [02-intersection-types](#02-intersection-types)
     - [03-type-guards](#03-type-guards)
     - [04-discriminated-unions](#04-discriminated-unions)
@@ -49,7 +48,6 @@
     - [06-index-properties](#06-index-properties)
     - [08-optional-chaining-nullish-coalescing](#08-optional-chaining-nullish-coalescing)
   - [Section 7 : Generics](#section-7--generics)
-    - [01-starting-setup](#01-starting-setup-1)
     - [02-first-generic-method](#02-first-generic-method)
     - [03-another-generic-function](#03-another-generic-function)
     - [04-keyof-constraints](#04-keyof-constraints)
@@ -982,31 +980,202 @@ see `section6` examples folder
 
 ![](2020-09-10-11-50-53.png)
 
-### 01-starting-setup
-
 ### 02-intersection-types
+
+```ts
+// interface Admin { 
+//   name: string;
+//   privileges: string[];
+// }
+type Admin = {
+  name: string;
+  privileges: string[];
+};
+
+// interface Admin { 
+//   name: string;
+//   startDate: Date;
+// }
+type Employee = {
+  name: string;
+  startDate: Date;
+};
+// interface ElevatedEmployee extends Employee, Admin {}
+type ElevatedEmployee = Admin & Employee;
+// the result is new object type ...
+// are closely to inreference + extends
+
+const e1: ElevatedEmployee = {
+  name: 'Max',
+  privileges: ['create-server'],
+  startDate: new Date()
+};
+```
 
 ### 03-type-guards
 
-### 04-discriminated-unions
+```ts
+type Combinable = string | number;
+type Numeric = number | boolean;
 
+type Universal = Combinable & Numeric;
+
+function add(a: Combinable, b: Combinable) {
+  if (typeof a === 'string' || typeof b === 'string') {
+    return a.toString() + b.toString();
+  }
+  return a + b;
+}
+```
+
+- operatore [in](https://developer.mozilla.org/it/docs/Web/JavaScript/Reference/Operators/in)
+```ts
+type UnknownEmployee = Employee | Admin;
+
+function printEmployeeInformation(emp: UnknownEmployee) {
+  console.log('Name: ' + emp.name);
+  if ('privileges' in emp) {
+    console.log('Privileges: ' + emp.privileges);
+  }
+  if ('startDate' in emp) {
+    console.log('Start Date: ' + emp.startDate);
+  }
+}
+```  
+
+-[instanceof](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/instanceof) 
+
+```ts
+class Car {
+  drive() {
+    console.log('Driving...');
+  }
+}
+
+class Truck {
+  drive() {
+    console.log('Driving a truck...');
+  }
+
+  loadCargo(amount: number) {
+    console.log('Loading cargo ...' + amount);
+  }
+}
+
+type Vehicle = Car | Truck;
+
+const v1 = new Car();
+const v2 = new Truck();
+
+function useVehicle(vehicle: Vehicle) {
+  vehicle.drive();
+  if (vehicle instanceof Truck) {
+    vehicle.loadCargo(1000);
+  }
+}
+```
+
+### 04-discriminated-unions
+```ts
+interface Bird {
+  type: "bird";
+  flyingSpeed: number;
+}
+
+interface Horse {
+  type: "horse";
+  runningSpeed: number;
+}
+
+type Animal = Bird | Horse;
+
+function moveAnimal(animal: Animal) {
+  let speed;
+  switch (animal.type) {
+    case "bird":
+      speed = animal.flyingSpeed;
+      break;
+    case "horse":
+      speed = animal.runningSpeed;
+  }
+  console.log("Moving at speed: " + speed);
+}
+
+moveAnimal({ type: "bird", flyingSpeed: 10 });
+```
 ### 05-type-casting
+
+```ts
+// const userInputElement = <HTMLInputElement>document.getElementById('user-input')!;
+const userInputElement = document.getElementById("user-input");
+
+if (userInputElement) {
+  (userInputElement as HTMLInputElement).value = "Hi there!";
+}
+
+```
+- [advanced-types](https://www.typescriptlang.org/docs/handbook/advanced-types.html)
 
 ### 06-index-properties
 
+```ts
+interface ErrorContainer { // { email: 'Not a valid email', username: 'Must start with a character!' }
+  [prop: string]: string;
+}
+
+const errorBag: ErrorContainer = {
+  email: 'Not a valid email!',
+  username: 'Must start with a capital character!'
+};
+```
+
+- `function OVERLOAD` ... same function with same name e different parameters
+
+```ts
+function add(a: number, b: number): number;
+function add(a: string, b: string): string;
+function add(a: string, b: number): string;
+function add(a: number, b: string): string;
+function add(a: Combinable, b: Combinable) {
+  if (typeof a === "string" || typeof b === "string") {
+    return a.toString() + b.toString();
+  }
+  return a + b;
+}
+
+```
+
 ### 08-optional-chaining-nullish-coalescing
 
-These links might also be interesting:
+- `Chaining`
+```ts
+const fetchedUserData = {
+  id: "u1",
+  name: "Max",
+  job: { title: "CEO", description: "My own company" },
+};
 
-[More on Advanced Types](https://www.typescriptlang.org/docs/handbook/advanced-types.html)
+console.log(`Chaining ${fetchedUserData?.job?.title}`); // Chaining
+```
+
+- `nullish`
+```ts
+const userInput = undefined;
+
+// const storedData = userInput || 'DEFAULT';
+const storedData = userInput ?? "DEFAULT"; // nullish : if is null or undefined
+
+console.log(storedData);
+```
+
+
+- These links might also be interesting: [More on Advanced Types](https://www.typescriptlang.org/docs/handbook/advanced-types.html)
 
 ## Section 7 : Generics
 
 see `section7` examples folder
 
 ![](2020-09-16-09-27-55.png)
-
-### 01-starting-setup
 
 ### 02-first-generic-method
 

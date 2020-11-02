@@ -1,8 +1,16 @@
+// interface Admin { 
+//   name: string;
+//   privileges: string[];
+// }
 type Admin = {
   name: string;
   privileges: string[];
 };
 
+// interface Admin { 
+//   name: string;
+//   startDate: Date;
+// }
 type Employee = {
   name: string;
   startDate: Date;

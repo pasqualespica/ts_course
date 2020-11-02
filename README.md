@@ -1173,19 +1173,141 @@ console.log(storedData);
 
 ## Section 7 : Generics
 
-see `section7` examples folder
+see `section7` examples folder [generics](https://www.typescriptlang.org/docs/handbook/generics.html)
 
 ![](2020-09-16-09-27-55.png)
 
 ### 02-first-generic-method
 
-### 03-another-generic-function
+```ts
+const names: Array<string> = []; // string[]
+// names[0].split(' ');
 
+const promise: Promise<number> = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve(10);
+  }, 2000);
+});
+
+promise.then(data => {
+  // data.split(' ');
+})
+```
+
+Create now our generic function :
+
+from this :
+```ts
+function merge(objA: object, objB: object) {
+  return Object.assign(objA, objB);
+}
+```
+
+to this: 
+```ts
+function merge<T extends object, U extends object>(objA: T, objB: U) {
+  return Object.assign(objA, objB);
+}
+
+const mergedObj = merge({ name: "Max", hobbies: ["Sports"] }, { age: 30 });
+console.log(mergedObj);
+```
+
+### 03-another-generic-function
+```ts
+interface Lengthy {
+  length: number;
+}
+
+function countAndDescribe<T extends Lengthy>(element: T): [T, string] {
+  let descriptionText = "Got no value.";
+  if (element.length === 1) {
+    descriptionText = "Got 1 element.";
+  } else if (element.length > 1) {
+    descriptionText = "Got " + element.length + " elements.";
+  }
+  return [element, descriptionText];
+}
+
+console.log(countAndDescribe(["Sports", "Cooking"]));
+
+```
 ### 04-keyof-constraints
 
+example of `keyof` keyword ...
+
+```ts
+function extractAndConvert<T extends object, U extends keyof T>(
+  obj: T,
+  key: U
+) {
+  return 'Value: ' + obj[key];
+}
+
+extractAndConvert({ name: 'Max' }, 'name');
+```
+
 ### 05-generic-classes
+```ts
+class DataStorage<T extends string | number | boolean> {
+  private data: T[] = [];
+
+  addItem(item: T) {
+    this.data.push(item);
+  }
+
+  removeItem(item: T) {
+    if (this.data.indexOf(item) === -1) {
+      return;
+    }
+    this.data.splice(this.data.indexOf(item), 1); // -1
+  }
+
+  getItems() {
+    return [...this.data];
+  }
+}
+
+const textStorage = new DataStorage<string>();
+textStorage.addItem('Max');
+textStorage.addItem('Manu');
+textStorage.removeItem('Max');
+console.log(textStorage.getItems());
+
+const numberStorage = new DataStorage<number>();
+```
 
 ### 06-finished
+
+- [partialtype](https://www.typescriptlang.org/docs/handbook/utility-types.html#partialtype)
+
+- [readonlytype](https://www.typescriptlang.org/docs/handbook/utility-types.html#readonlytype)
+
+in general [utility-types](https://www.typescriptlang.org/docs/handbook/utility-types.html) 🚀
+
+```ts
+interface CourseGoal {
+  title: string;
+  description: string;
+  completeUntil: Date;
+}
+
+function createCourseGoal(
+  title: string,
+  description: string,
+  date: Date
+): CourseGoal {
+  let courseGoal: Partial<CourseGoal> = {};
+  courseGoal.title = title;
+  courseGoal.description = description;
+  courseGoal.completeUntil = date;
+  return courseGoal as CourseGoal;
+}
+
+const names: Readonly<string[]> = ['Max', 'Anna']; // unlocked array
+// names.push('Manu');
+// names.pop();
+```
 
 [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
 

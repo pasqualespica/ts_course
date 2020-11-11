@@ -54,7 +54,30 @@
     - [05-generic-classes](#05-generic-classes)
     - [06-finished](#06-finished)
   - [Section 8 : Decorators](#section-8--decorators)
+    - [02-first-class-decorator](#02-first-class-decorator)
+    - [03-decorator-factories](#03-decorator-factories)
+    - [04-adv-decorators](#04-adv-decorators)
+    - [05-finished-class-decorators](#05-finished-class-decorators)
+    - [06-different-decorators and 07-non-class-decorators-finished](#06-different-decorators-and-07-non-class-decorators-finished)
+    - [08-returning-values-in-decorators](#08-returning-values-in-decorators)
+    - [09-example-autobind](#09-example-autobind)
+    - [10-decorator-validation](#10-decorator-validation)
   - [Section 9 : Practice Time! Let's build a Drag & Drop Project](#section-9--practice-time-lets-build-a-drag--drop-project)
+    - [prj-02-prj-input-form](#prj-02-prj-input-form)
+    - [prj-03-form-access-and-bind-this](#prj-03-form-access-and-bind-this)
+    - [prj-04-autobind-decorator](#prj-04-autobind-decorator)
+    - [prj-05-fetching-user-input-with-validation](#prj-05-fetching-user-input-with-validation)
+    - [prj-06-more-elaborate-validation](#prj-06-more-elaborate-validation)
+    - [prj-07-rendering-a-project-section](#prj-07-rendering-a-project-section)
+    - [prj-08-basic-list-rendering-basic-state-mgmt](#prj-08-basic-list-rendering-basic-state-mgmt)
+    - [prj-09-project-and-listener-types](#prj-09-project-and-listener-types)
+    - [prj-10-filtering-added](#prj-10-filtering-added)
+    - [prj-11-inheritance-and-generics](#prj-11-inheritance-and-generics)
+    - [prj-12-added-projectitem-class](#prj-12-added-projectitem-class)
+    - [prj-13-added-a-getter](#prj-13-added-a-getter)
+    - [prj-14-draggable-list-item](#prj-14-draggable-list-item)
+    - [prj-15-visual-drag-and-drop-feedback](#prj-15-visual-drag-and-drop-feedback)
+    - [prj-16-finished](#prj-16-finished)
   - [Section 10 : Modules & Namespaces](#section-10--modules--namespaces)
   - [Section 11 : Using Webpack with TypeScript](#section-11--using-webpack-with-typescript)
   - [Section 12 : 3rd Party Libraries & TypeScript](#section-12--3rd-party-libraries--typescript)
@@ -1313,20 +1336,385 @@ const names: Readonly<string[]> = ['Max', 'Anna']; // unlocked array
 
 [utility-types](https://www.typescriptlang.org/docs/handbook/utility-types.html)
 
-<!-- 0 / 12|52 min -->
-
 ## Section 8 : Decorators
 
-see `section8` examples folder
+see `section8` examples folder. [decorator](https://www.typescriptlang.org/docs/handbook/decorators.html)
+
+Enable in your `tsconfig.json` :
+```json
+    "experimentalDecorators": true /* Enables experimental support for ES7 decorators. */
+```
+
+### 02-first-class-decorator
+
+> Decorators runs on CLASS DEFINITION , not on instance
+```ts
+function Logger(constructor: Function) {
+  console.log('Logging...');
+  console.log(constructor);
+}
+
+@Logger
+class Person {
+  name = 'Max';
+
+  constructor() {
+    console.log('Creating person object...');
+  }
+
+}
+
+// const pers = new Person();
+// console.log(pers);
+```
+
+### 03-decorator-factories
+
+More power passing arguments ...
+
+```ts
+function Logger(logString: string) {
+  return function(constructor: Function) {
+    console.log(logString);
+    console.log(constructor);
+  };
+}
+
+@Logger('LOGGING - PERSON')
+class Person {
+  name = 'Max';
+
+  constructor() {
+    console.log('Creating person object...');
+  }
+}
+
+const pers = new Person();
+
+console.log(pers);
+```
+
+
+### 04-adv-decorators
+
+```ts
+function Logger(logString: string) {
+  return function(constructor: Function) {
+    console.log(logString);
+    console.log(constructor);
+  };
+}
+
+function WithTemplate(template: string, hookId: string) {
+  return function(constructor: any) {
+    const hookEl = document.getElementById(hookId);
+    const p = new constructor();
+    if (hookEl) {
+      hookEl.innerHTML = template;
+      hookEl.querySelector('h1')!.textContent = p.name;
+    }
+  }
+}
+
+// @Logger('LOGGING - PERSON')
+@WithTemplate('<h1>My Person Object</h1>', 'app')
+class Person {
+  name = 'Max';
+
+  constructor() {
+    console.log('Creating person object...');
+  }
+}
+
+const pers = new Person();
+
+console.log(pers);
+```
+
+### 05-finished-class-decorators
+
+**Bottom-Up** execution witm `multiple decorators`
+
+```ts
+function Logger(logString: string) {
+  console.log('LOGGER FACTORY');
+  return function(constructor: Function) {
+    console.log(logString);
+    console.log(constructor);
+  };
+}
+
+function WithTemplate(template: string, hookId: string) {
+  console.log('TEMPLATE FACTORY');
+  return function(constructor: any) {
+    console.log('Rendering template');
+    const hookEl = document.getElementById(hookId);
+    const p = new constructor();
+    if (hookEl) {
+      hookEl.innerHTML = template;
+      hookEl.querySelector('h1')!.textContent = p.name;
+    }
+  }
+}
+
+// @Logger('LOGGING - PERSON')
+@Logger('LOGGING')
+@WithTemplate('<h1>My Person Object</h1>', 'app')
+class Person {
+  name = 'Max';
+
+  constructor() {
+    console.log('Creating person object...');
+  }
+}
+
+const pers = new Person();
+
+console.log(pers);
+```
+
+### 06-different-decorators and 07-non-class-decorators-finished
+
+add decorator to 
+-  `Property` 
+-  `Accessor`
+-  `Method`
+-  `Parameter`
+
+```ts
+function Log(target: any, propertyName: string | Symbol) {
+  console.log('Property decorator!');
+  console.log(target, propertyName);
+}
+
+function Log2(target: any, name: string, descriptor: PropertyDescriptor) {
+  console.log('Accessor decorator!');
+  console.log(target);
+  console.log(name);
+  console.log(descriptor);
+}
+
+function Log3(
+  target: any,
+  name: string | Symbol,
+  descriptor: PropertyDescriptor
+) {
+  console.log('Method decorator!');
+  console.log(target);
+  console.log(name);
+  console.log(descriptor);
+}
+
+function Log4(target: any, name: string | Symbol, position: number) {
+  console.log('Parameter decorator!');
+  console.log(target);
+  console.log(name);
+  console.log(position);
+}
+
+class Product {
+  @Log
+  title: string;
+  private _price: number;
+
+  @Log2
+  set price(val: number) {
+    if (val > 0) {
+      this._price = val;
+    } else {
+      throw new Error('Invalid price - should be positive!');
+    }
+  }
+
+  constructor(t: string, p: number) {
+    this.title = t;
+    this._price = p;
+  }
+
+  @Log3
+  getPriceWithTax(@Log4 tax: number) {
+    return this._price * (1 + tax);
+  }
+}
+```
+> **IMPORTANT** : Remember all decoratos run only on definition NOT on instance
+
+> **Use decoratots to do something behind , add extra metadata, ...**
+
+
+```ts
+function WithTemplate(template: string, hookId: string) {
+  console.log('TEMPLATE FACTORY');
+  return function<T extends { new (...args: any[]): {name: string} }>(
+    originalConstructor: T
+  ) {
+    return class extends originalConstructor {
+      constructor(..._: any[]) {
+        super();
+        console.log('Rendering template');
+        const hookEl = document.getElementById(hookId);
+        if (hookEl) {
+          hookEl.innerHTML = template;
+          hookEl.querySelector('h1')!.textContent = this.name;
+        }
+      }
+    };
+  };
+}
+
+```
+
+### 08-returning-values-in-decorators
+
+![](2020-11-07-18-17-35.png)
+[Object.defineProperty](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty)
+
+### 09-example-autobind
+
+- [Function.prototype.bind](https://developer.mozilla.org/it/docs/Web/JavaScript/Reference/Global_Objects/Function/bind)
+
+becuse content with `addEventListener` istn't `p`  without decorator we should use `p.showMessage.bind(p)`
+
+```ts
+function Autobind(_: any, _2: string, descriptor: PropertyDescriptor) {
+  const originalMethod = descriptor.value;
+  const adjDescriptor: PropertyDescriptor = {
+    configurable: true,
+    enumerable: false,
+    get() {
+      const boundFn = originalMethod.bind(this);
+      return boundFn;
+    }
+  };
+  return adjDescriptor;
+}
+
+class Printer {
+  message = 'This works!';
+
+  @Autobind
+  showMessage() {
+    console.log(this.message);
+  }
+}
+
+const p = new Printer();
+p.showMessage();
+
+const button = document.querySelector('button')!;
+button.addEventListener('click', p.showMessage);
+```
+
+### 10-decorator-validation
+
+Validation with Decorators ...
+
+```ts
+interface ValidatorConfig {
+  [property: string]: { // https://www.typescriptlang.org/docs/handbook/advanced-types.html#index-types-and-index-signatures
+    [validatableProp: string]: string[]; // ['required', 'positive']
+  };
+}
+
+const registeredValidators: ValidatorConfig = {};
+ 
+function Required(target: any, propName: string) {
+  registeredValidators[target.constructor.name] = {
+    ...registeredValidators[target.constructor.name],
+    [propName]: [...registeredValidators[target.constructor.name][propName], 'required']
+  };
+}
+ 
+function PositiveNumber(target: any, propName: string) {
+  registeredValidators[target.constructor.name] = {
+    ...registeredValidators[target.constructor.name],
+    [propName]: [...registeredValidators[target.constructor.name][propName], 'positive']
+  };
+}
+
+function validate(obj: any) {
+  const objValidatorConfig = registeredValidators[obj.constructor.name];
+  if (!objValidatorConfig) {
+    return true;
+  }
+  let isValid = true;
+  for (const prop in objValidatorConfig) {
+    for (const validator of objValidatorConfig[prop]) {
+      switch (validator) {
+        case 'required':
+          isValid = isValid && !!obj[prop];
+          break;
+        case 'positive':
+          isValid = isValid && obj[prop] > 0;
+          break;
+      }
+    }
+  }
+  return isValid;
+}
+
+class Course {
+  @Required
+  title: string;
+  @PositiveNumber
+  price: number;
+
+  constructor(t: string, p: number) {
+    this.title = t;
+    this.price = p;
+  }
+}
+
+const courseForm = document.querySelector('form')!;
+courseForm.addEventListener('submit', event => {
+  event.preventDefault();
+  const titleEl = document.getElementById('title') as HTMLInputElement;
+  const priceEl = document.getElementById('price') as HTMLInputElement;
+
+  const title = titleEl.value;
+  const price = +priceEl.value;
+
+  const createdCourse = new Course(title, price);
+
+  if (!validate(createdCourse)) {
+    alert('Invalid input, please try again!');
+    return;
+  }
+  console.log(createdCourse);
+});
+
+```
+
+see also :
+- [class-validator](https://github.com/typestack/class-validator)
+- [nestjs](https://docs.nestjs.com/)
 
 <!-- 0 / 16|1 h 17 min -->
 
 ## Section 9 : Practice Time! Let's build a Drag & Drop Project
 
-<!-- 0 / 20|2 h 41 min -->
+### prj-02-prj-input-form
+
+### prj-03-form-access-and-bind-this
+### prj-04-autobind-decorator
+### prj-05-fetching-user-input-with-validation
+### prj-06-more-elaborate-validation
+### prj-07-rendering-a-project-section
+### prj-08-basic-list-rendering-basic-state-mgmt
+### prj-09-project-and-listener-types
+### prj-10-filtering-added
+### prj-11-inheritance-and-generics
+### prj-12-added-projectitem-class
+### prj-13-added-a-getter
+### prj-14-draggable-list-item
+### prj-15-visual-drag-and-drop-feedback
+### prj-16-finished
 
 ## Section 10 : Modules & Namespaces
 
+https://medium.com/computed-comparisons/commonjs-vs-amd-vs-requirejs-vs-es6-modules-2e814b114a0b
+
+![](2020-11-07-17-30-56.png)
 <!-- 0 / 11|50 min -->
 
 ## Section 11 : Using Webpack with TypeScript

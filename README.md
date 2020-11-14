@@ -79,6 +79,9 @@
     - [prj-15-visual-drag-and-drop-feedback](#prj-15-visual-drag-and-drop-feedback)
     - [prj-16-finished](#prj-16-finished)
   - [Section 10 : Modules & Namespaces](#section-10--modules--namespaces)
+    - [modules-01-Namespaces](#modules-01-namespaces)
+    - [modules-02-es-modules-basics](#modules-02-es-modules-basics)
+    - [modules-03-finished-modules](#modules-03-finished-modules)
   - [Section 11 : Using Webpack with TypeScript](#section-11--using-webpack-with-typescript)
   - [Section 12 : 3rd Party Libraries & TypeScript](#section-12--3rd-party-libraries--typescript)
   - [Section 13 : Time to Practice!](#section-13--time-to-practice)
@@ -1714,10 +1717,101 @@ Useful link :
 
 ## Section 10 : Modules & Namespaces
 
-https://medium.com/computed-comparisons/commonjs-vs-amd-vs-requirejs-vs-es6-modules-2e814b114a0b
+[CommonJS vs AMD vs RequireJS vs ES6 Modules](https://medium.com/computed-comparisons/commonjs-vs-amd-vs-requirejs-vs-es6-modules-2e814b114a0b)
+
+>Two type of splitting ...
 
 ![](2020-11-07-17-30-56.png)
-<!-- 0 / 11|50 min -->
+
+### modules-01-Namespaces
+
+available only in `TypeScript` ... and Organizing Files & Folders
+
+```ts
+/// <reference path="components/project-input.ts" />
+/// <reference path="components/project-list.ts" />
+
+namespace App {
+  new ProjectInput();
+  new ProjectList('active');
+  new ProjectList('finished');
+}
+```
+compile into one single file
+```json
+    "outFile": "./dist/bundle.js",                       /* Concatenate and emit output to single file. */
+```
+
+> A Problem with Namespace Imports, it's to "import" all `ts` file to avoid runtime error (reference to object not found)
+
+### modules-02-es-modules-basics
+
+> Important: In the next lecture, we'll use a feature which only works in modern browsers.
+
+> Later in the course, we'll find a way to make it work in older browsers as well, but for now make sure you are following along in Chrome or Firefox!
+
+
+We have removed `namespaces` e special include and we use only `import` keyword :
+```
+import { ProjectInput } from './components/project-input.js';
+import { ProjectList } from './components/project-list.js';
+
+new ProjectInput();
+new ProjectList('active');
+new ProjectList('finished');
+```
+> NOTE : import we have to change configuration file `tsconfig.json`
+
+```json
+    "target": "es6" /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017','ES2018' or 'ESNEXT'. */,
+    "module": "es2015" /* Specify module code generation: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015', or 'ESNext'. */,
+```
+comment `outFile` : 
+
+```json
+    // "outFile": "./dist/bundle.js",                       /* Concatenate and emit output to single file. */
+```
+
+and remember to update also `index.html`
+
+> NOTE : `type="module"`
+```html
+    <script type="module" src="dist/app.js"></script>
+```
+now if you open `inspect` seciton into browser you can see that the modern browser automatically fetch module when found it.
+![](2020-11-14-17-35-03.png)
+
+**Understanding various Import & Export Syntaxes** : 
+
+- [import](https://developer.mozilla.org/it/docs/Web/JavaScript/Reference/Statements/import)
+
+```js
+import defaultExport from "module-name"; // note only one 'export default' per file. And in this match name itsn't required
+import * as name from "module-name";
+import { export } from "module-name";
+import { export as alias } from "module-name";
+import { export1 , export2 } from "module-name";
+import { export1 , export2 as alias2 , [...] } from "module-name";
+import defaultExport, { export [ , [...] ] } from "module-name";
+import defaultExport, * as name from "module-name";
+import "module-name";
+```
+
+### modules-03-finished-modules
+
+**How Does Code In Modules Execute?** ...
+
+_After reviewing the specification, you know that a JavaScript module is evaluated once. Also, when importing modules from the same path, the same module instance is returned._
+
+https://dmitripavlutin.com/javascript-module-import-twice/
+
+
+These links might also be interesting:
+
+- [JavaScript Modules (Overview)](https://medium.com/computed-comparisons/commonjs-vs-amd-vs-requirejs-vs-es6-modules-2e814b114a0b)
+
+- [More on ES Modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules)
+
 
 ## Section 11 : Using Webpack with TypeScript
 

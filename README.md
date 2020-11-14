@@ -1693,8 +1693,10 @@ see also :
 
 ## Section 9 : Practice Time! Let's build a Drag & Drop Project
 
-### prj-02-prj-input-form
+Useful link :
+- [HTML_Drag_and_Drop_API](https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API)
 
+### prj-02-prj-input-form
 ### prj-03-form-access-and-bind-this
 ### prj-04-autobind-decorator
 ### prj-05-fetching-user-input-with-validation

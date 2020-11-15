@@ -83,6 +83,10 @@
     - [modules-02-es-modules-basics](#modules-02-es-modules-basics)
     - [modules-03-finished-modules](#modules-03-finished-modules)
   - [Section 11 : Using Webpack with TypeScript](#section-11--using-webpack-with-typescript)
+    - [webpack-01-basic-setup](#webpack-01-basic-setup)
+    - [webpack-02-added-ts-loader](#webpack-02-added-ts-loader)
+    - [webpack-03-finished-dev-setup](#webpack-03-finished-dev-setup)
+    - [webpack-04-added-prod-workflow](#webpack-04-added-prod-workflow)
   - [Section 12 : 3rd Party Libraries & TypeScript](#section-12--3rd-party-libraries--typescript)
   - [Section 13 : Time to Practice!](#section-13--time-to-practice)
   - [Section 14 : React.js & TypeScript](#section-14--reactjs--typescript)
@@ -1815,7 +1819,181 @@ These links might also be interesting:
 
 ## Section 11 : Using Webpack with TypeScript
 
-<!-- 0 / 9|33 min -->
+- What is Webpack & Why do we need it?
+
+we have a lot of http requests 
+
+![](2020-11-14-17-58-53.png)
+
+and to reduce this, we can use [webpack](https://webpack.js.org/)
+
+![](2020-11-14-18-00-43.png)
+
+![](2020-11-14-18-04-28.png)
+
+- Installing Webpack & Important Dependencies
+
+
+- Adding Entry & Output Configuration
+
+### webpack-01-basic-setup
+
+To start install :
+
+`npm install --save-dev webpack webpack-cli webpack-dev-server typescript ts-loader`
+
+then add new configuration file `webpack.config.js` :
+
+see [webpack-doc](https://webpack.js.org/concepts/)
+
+```ts
+const path = require('path');
+
+module.exports = {
+  entry: './src/app.ts',
+  output: {
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'dist')
+  }
+};
+```
+
+
+### webpack-02-added-ts-loader
+
+now modify as follow 👍
+
+```ts
+const path = require('path');
+
+module.exports = {
+  entry: './src/app.ts',
+  output: {
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'dist')
+  },
+  devtool: 'inline-source-map', // debug !!!
+  module: {
+    rules: [
+      {
+        test: /\.ts$/,
+        use: 'ts-loader',
+        exclude: /node_modules/
+      }
+    ]
+  },
+  resolve: {
+    extensions: ['.ts', '.js']
+  }
+};
+```
+
+and the call it into `package.json` 
+
+```json
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack-dev-server",
+    "build": "webpack"
+  },
+```
+
+then delete all files under `dist` folder, and on termnial typing
+
+```
+npm run build
+```
+
+and it's all right you will see `bundle.js`
+
+> remember to modify `index.html`
+> 
+>``` <script type="module" src="dist/bundle.js"></script>```
+
+and as you can see we now have reduce all unnecessary http module requests
+
+![](2020-11-15-18-43-04.png)
+
+and also debug it
+
+![](2020-11-15-18-44-20.png)
+
+
+### webpack-03-finished-dev-setup
+
+then to run it typing `npm start`
+
+> NOTE with `webpack-dev-server` mode the bundle is generate only in MEMORY !!!
+
+but in this way `index.html` not found this file, to resolve, add into `webpack.config.js` , the property `publicPath`
+
+```ts
+  output: {
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'dist'),
+    publicPath: 'dist'
+  },
+```
+
+### webpack-04-added-prod-workflow
+
+in the previous `webpack.config` we have set mode to develop
+
+```ts
+module.exports = {
+  mode: 'development',
+```
+
+here we create a new config file named ex. `webpack.config.prod.js` like this one, but to use `CleanPlugin` we first install a new package
+
+
+```bash
+npm install --save-dev clean-webpack-plugin
+```
+
+and then 
+
+```js
+const path = require('path');
+const CleanPlugin = require('clean-webpack-plugin');
+
+module.exports = {
+  mode: 'production',
+  entry: './src/app.ts',
+  output: {
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'dist')
+  },
+  devtool: 'none',
+  module: {
+    rules: [
+      {
+        test: /\.ts$/,
+        use: 'ts-loader',
+        exclude: /node_modules/
+      }
+    ]
+  },
+  resolve: {
+    extensions: ['.ts', '.js']
+  },
+  plugins: [
+    new CleanPlugin.CleanWebpackPlugin()
+  ]
+};
+```
+
+and use it modify `package.json` as follow
+
+```json
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack-dev-server",
+    "build": "webpack --config webpack.config.prod.js"
+  },
+```
+
+to defualt `webpack` see `webpack.config.js` file
 
 ## Section 12 : 3rd Party Libraries & TypeScript
 

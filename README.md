@@ -88,6 +88,9 @@
     - [webpack-03-finished-dev-setup](#webpack-03-finished-dev-setup)
     - [webpack-04-added-prod-workflow](#webpack-04-added-prod-workflow)
   - [Section 12 : 3rd Party Libraries & TypeScript](#section-12--3rd-party-libraries--typescript)
+    - [libs-01-starting-setup + libs-02-lodash-and-types](#libs-01-starting-setup--libs-02-lodash-and-types)
+    - [libs-03-class-transformer](#libs-03-class-transformer)
+    - [libs-04-class-validator](#libs-04-class-validator)
   - [Section 13 : Time to Practice!](#section-13--time-to-practice)
   - [Section 14 : React.js & TypeScript](#section-14--reactjs--typescript)
   - [Section 15 : Node.js + Express & TypeScript](#section-15--nodejs--express--typescript)
@@ -1997,7 +2000,152 @@ to defualt `webpack` see `webpack.config.js` file
 
 ## Section 12 : 3rd Party Libraries & TypeScript
 
-<!-- 0 / 7|30 min -->
+### libs-01-starting-setup + libs-02-lodash-and-types
+
+first install [lodash](https://lodash.com/) a pure JS 3pp library
+
+```
+npm i --save lodash
+```
+
+and the its 3pp part library to wrk with `Typescript`
+
+```
+npm install --save @types/lodash
+```
+
+then try it typing 👍
+
+```ts
+import _ from "lodash";
+
+console.log(_.shuffle([1,2,3]));
+```
+
+see also [delcare](https://dzone.com/articles/quick-tip-%E2%80%93-typescript-declare#:~:text=The%20declare%20keyword%20is%20used,myLibrary%20in%20the%20global%20namespace.) keyword
+### libs-03-class-transformer
+
+Install module [class-transformer](https://github.com/typestack/class-transformer):
+```
+npm install class-transformer --save
+```
+
+reflect-metadata shim is required, install it too:
+
+```
+npm install reflect-metadata --save
+```
+
+then
+
+```ts
+export class Product {
+  title: string;
+  price: number;
+
+  constructor(t: string, p: number) {
+    this.title = t;
+    this.price = p;
+  }
+
+  getInformation() {
+    return [this.title, `$${this.price}`];
+  }
+}
+```
+
+```ts
+import 'reflect-metadata';
+import { plainToClass } from 'class-transformer';
+
+import { Product } from './product.model';
+
+const products = [
+  { title: 'A Carpet', price: 29.99 },
+  { title: 'A Book', price: 10.99 }
+];
+
+// const p1 = new Product('A Book', 12.99);
+
+// const loadedProducts = products.map(prod => {     // OLD WAY
+//   return new Product(prod.title, prod.price);
+// });
+
+const loadedProducts = plainToClass(Product, products);
+
+for (const prod of loadedProducts) {
+  console.log(prod.getInformation());
+}
+```
+
+### libs-04-class-validator
+
+now install [class-validator](https://github.com/typestack/class-validator) that use `decorator`
+
+```
+npm install class-validator --save
+```
+
+and then apply it
+
+```ts
+import { IsNotEmpty, IsNumber, IsPositive } from 'class-validator';
+
+export class Product {
+  @IsNotEmpty()
+  title: string;
+  @IsNumber()
+  @IsPositive()
+  price: number;
+
+  constructor(t: string, p: number) {
+    this.title = t;
+    this.price = p;
+  }
+
+  getInformation() {
+    return [this.title, `$${this.price}`];
+  }
+}
+```
+
+and then use it `validate` that is a [Promise](https://developer.mozilla.org/it/docs/Web/JavaScript/Reference/Global_Objects/Promise)
+
+```ts
+import 'reflect-metadata';
+import { plainToClass } from 'class-transformer';
+import { validate } from 'class-validator';
+
+import { Product } from './product.model';
+
+const products = [
+  { title: 'A Carpet', price: 29.99 },
+  { title: 'A Book', price: 10.99 }
+];
+
+const newProd = new Product('', -5.99);
+validate(newProd).then(errors => {
+  if (errors.length > 0) {
+    console.log('VALIDATION ERRORS!');
+    console.log(errors);
+  } else {
+    console.log(newProd.getInformation());
+  }
+});
+
+// const p1 = new Product('A Book', 12.99);
+
+// const loadedProducts = products.map(prod => {
+//   return new Product(prod.title, prod.price);
+// });
+
+const loadedProducts = plainToClass(Product, products);
+
+for (const prod of loadedProducts) {
+  console.log(prod.getInformation());
+}
+
+```
 
 ## Section 13 : Time to Practice!
 

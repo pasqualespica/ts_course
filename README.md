@@ -92,6 +92,8 @@
     - [libs-03-class-transformer](#libs-03-class-transformer)
     - [libs-04-class-validator](#libs-04-class-validator)
   - [Section 13 : Time to Practice!](#section-13--time-to-practice)
+    - [prj-libs-02-basic-form-and-markup fetching-coordinates](#prj-libs-02-basic-form-and-markup-fetching-coordinates)
+    - [prj-libs-04-finished](#prj-libs-04-finished)
   - [Section 14 : React.js & TypeScript](#section-14--reactjs--typescript)
   - [Section 15 : Node.js + Express & TypeScript](#section-15--nodejs--express--typescript)
   - [Section 16 : Course Roundup](#section-16--course-roundup)
@@ -2149,7 +2151,77 @@ for (const prod of loadedProducts) {
 
 ## Section 13 : Time to Practice!
 
-<!-- 0 / 8|27 min -->
+_"Select & Share a Place" App (incl. Google Maps)_
+
+create a template `index.html` and `app.css`
+### prj-libs-02-basic-form-and-markup fetching-coordinates
+
+
+Promise based HTTP client for the browser and node.js
+
+[axios](https://github.com/axios/axios)
+
+```ts
+import axios from "axios";
+
+const form = document.querySelector("form")!;
+const addressInput = document.getElementById("address")! as HTMLInputElement;
+
+const GOOGLE_API_KEY = "AIzaSyCIaAc2c5M3VpbCH6PPq_guwy9lHuowXOs";
+
+type GoogleGeocodingResponse = {
+  results: { geometry: { location: { lat: number; lng: number } } }[];
+  status: "OK" | "ZERO_RESULTS";
+};
+
+function searchAddressHandler(event: Event) {
+  event.preventDefault();
+  const enteredAddress = addressInput.value;
+
+  axios
+    .get<GoogleGeocodingResponse>(
+      `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURI(
+        enteredAddress
+      )}&key=${GOOGLE_API_KEY}`
+    )
+    .then(response => {
+      // console.log(response);
+      if (response.data.status !== "OK") {
+        throw new Error("Could not fetch location!");
+      }
+      const coordinates = response.data.results[0].geometry.location;
+    })
+    .catch(err => {
+      alert(err.message);
+      console.log(err);
+    });
+}
+
+form.addEventListener("submit", searchAddressHandler);
+```
+### prj-libs-04-finished
+
+https://developers.google.com/maps/documentation/javascript/overview
+
+modify `index.html` adding :
+
+```html
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCIaAc2c5M3VpbCH6PPq_guwy9lHuowXOs"
+      async
+      defer
+    ></script>
+```
+
+and other things ...
+
+These links might also be interesting:
+
+Google Maps Pricing: https://cloud.google.com/maps-platform/pricing/sheet/
+
+Google Geocoding API: https://developers.google.com/maps/documentation/geocoding/start
+
+Google Maps JS SDK: https://developers.google.com/maps/documentation/javascript/tutorial
 
 ## Section 14 : React.js & TypeScript
 

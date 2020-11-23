@@ -96,6 +96,10 @@
     - [prj-libs-04-finished](#prj-libs-04-finished)
   - [Section 14 : React.js & TypeScript](#section-14--reactjs--typescript)
   - [Section 15 : Node.js + Express & TypeScript](#section-15--nodejs--express--typescript)
+    - [node-02-first-server](#node-02-first-server)
+    - [node-03-basic-routes-and-middleware](#node-03-basic-routes-and-middleware)
+    - [node-04-post-request](#node-04-post-request)
+    - [node-05-finished](#node-05-finished)
   - [Section 16 : Course Roundup](#section-16--course-roundup)
 
 ## Section 1 : Getting Started
@@ -2229,7 +2233,10 @@ Google Maps JS SDK: https://developers.google.com/maps/documentation/javascript/
 
 ## Section 15 : Node.js + Express & TypeScript
 
-<!-- 0 / 9|43 min -->
+### node-02-first-server
+### node-03-basic-routes-and-middleware
+### node-04-post-request
+### node-05-finished
 
 ## Section 16 : Course Roundup
 

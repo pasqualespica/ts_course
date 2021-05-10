@@ -95,6 +95,7 @@
     - [prj-libs-02-basic-form-and-markup fetching-coordinates](#prj-libs-02-basic-form-and-markup-fetching-coordinates)
     - [prj-libs-04-finished](#prj-libs-04-finished)
   - [Section 14 : React.js & TypeScript](#section-14--reactjs--typescript)
+    - [Getting User Input with "refs"](#getting-user-input-with-refs)
   - [Section 15 : Node.js + Express & TypeScript](#section-15--nodejs--express--typescript)
     - [node-02-first-server](#node-02-first-server)
     - [node-03-basic-routes-and-middleware](#node-03-basic-routes-and-middleware)
@@ -2229,8 +2230,108 @@ Google Maps JS SDK: https://developers.google.com/maps/documentation/javascript/
 
 ## Section 14 : React.js & TypeScript
 
-<!-- 0 / 13|45 min -->
+[Create React App](https://it.reactjs.org/docs/create-a-new-react-app.html) and [with TS temaplate](https://create-react-app.dev/docs/adding-typescript/)
 
+typing :
+```
+npx create-react-app my-app --template typescript
+```
+
+this command create `App.tsx` a special file where you can  write, `ts` and `js` code.
+
+```js
+import React from 'react';
+
+//    type FC<P = {}> = FunctionComponent<P>;
+const App: React.FC = () => { // FunctionComponent
+  return (
+    <div className="App">
+    </div>
+  );
+};
+
+export default App;
+```
+
+and into `index.tsx`
+
+```js
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+import './index.css';
+import App from './App';
+
+ReactDOM.render(<App />, document.getElementById('root'));
+
+```
+and very simple style `index.css`
+
+```css
+html {
+  font-family: sans-serif;
+}
+
+body {
+  margin: 0;
+}
+
+```
+
+then typing `npm install` && `npm start` , then starting a server on `http://localhost:3000/`
+
+now exteded this our first APP ... with porp
+
+> Concettualmente, i componenti sono come funzioni JavaScript: accettano in input dati arbitrari (sotto il nome di “props”) e ritornano elementi React che descrivono cosa dovrebbe apparire sullo schermo.
+```js
+import React from 'react';
+
+interface TodoListProps {
+  items: {id: string, text: string}[];
+};
+
+const TodoList: React.FC<TodoListProps> = props => {
+  return (
+    <ul>
+      {props.items.map(todo => (
+        <li key={todo.id}>{todo.text}</li>
+      ))}
+    </ul>
+  );
+};
+
+export default TodoList;
+
+```
+
+now crate a new **ToDoList** 
+### Getting User Input with "refs"
+
+```js
+import React, { useRef } from 'react';
+
+const NewTodo: React.FC = () => {
+  const textInputRef = useRef<HTMLInputElement>(null);
+
+  const todoSubmitHandler = (event: React.FormEvent) => {
+    event.preventDefault();
+    const enteredText = textInputRef.current!.value;
+    console.log(enteredText);
+  };
+
+  return (
+    <form onSubmit={todoSubmitHandler}>
+      <div>
+        <label htmlFor="todo-text">Todo Text</label>
+        <input type="text" id="todo-text" ref={textInputRef} />
+      </div>
+      <button type="submit">ADD TODO</button>
+    </form>
+  );
+};
+
+export default NewTodo;
+```
 ## Section 15 : Node.js + Express & TypeScript
 
 ### node-02-first-server

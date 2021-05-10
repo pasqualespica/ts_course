@@ -2,3 +2,22 @@
 2020.09.17 09:24:20 INFO  time: initialize in 14s
 2020.09.17 09:24:24 WARN  no build tool detected in workspace '/Users/pasqualespica/my_data/PAS7B/my_workspaces/ts_course'. The most common cause for this problem is that the editor was opened in the wrong working directory, for example if you use sbt then the workspace directory should contain build.sbt. 
 2020.09.17 09:25:56 INFO  shutting down Metals
+2020.11.30 09:37:41 INFO  Started: Metals version 0.9.7 in workspace '/Users/pasqualespica/my_data/PAS7B/my_workspaces/ts_course' for client vscode.
+2020.11.30 09:37:41 INFO  time: initialize in 0.43s
+2020.11.30 09:37:42 WARN  Build server is not auto-connectable.
+2020.11.30 09:37:42 WARN  no build tool detected in workspace '/Users/pasqualespica/my_data/PAS7B/my_workspaces/ts_course'. The most common cause for this problem is that the editor was opened in the wrong working directory, for example if you use sbt then the workspace directory should contain build.sbt. 
+Nov 30, 2020 11:44:41 AM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+INFO: Unsupported notification method: $/setTraceNotification
+Nov 30, 2020 2:43:34 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+INFO: Unsupported notification method: $/setTraceNotification
+Nov 30, 2020 3:09:11 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+INFO: Unsupported notification method: $/setTraceNotification
+Nov 30, 2020 5:03:40 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+INFO: Unsupported notification method: $/setTraceNotification
+Nov 30, 2020 5:03:43 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+INFO: Unsupported notification method: $/setTraceNotification
+Nov 30, 2020 5:03:45 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+INFO: Unsupported notification method: $/setTraceNotification
+Nov 30, 2020 5:12:57 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+INFO: Unsupported notification method: $/setTraceNotification
+2020.11.30 17:13:50 INFO  shutting down Metals

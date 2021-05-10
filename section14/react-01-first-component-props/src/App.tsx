@@ -7,7 +7,7 @@ const App: React.FC = () => { // FunctionComponent
   return (
     <div className="App">
       {/* A component that adds todos */}
-      <TodoList items={todos} />
+      <TodoList items={todos} /> 
     </div>
   );
 };
